@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupLogout();
     await setupSelectGroup(currentUser);
     await setupnickName(currentUser);
-
-
     dbbring();
 });
 
