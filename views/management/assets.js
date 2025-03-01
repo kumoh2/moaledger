@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupLogout();
     await setupSelectGroup(currentUser);
     await setupnickName(currentUser);
-
-
     dbbring();
 });
 
@@ -114,15 +112,9 @@ async function dbbring() {
             let ledger_id = row.querySelector(".ledger_class").textContent.trim();
             let description = row.querySelector(".description_class").textContent.trim();
             let transaction_date = row.querySelector(".transaction_dates_class").textContent.trim();
-            let usage_period = row.querySelector(".usage_period_class").textContent.trim();
+            let warranty_expiry = row.querySelector(".warranty_expiry_class").textContent.trim();
+            let free_repair_expiry = row.querySelector(".free_repair_expiry_class").textContent.trim();
             let last_cleaned_date = row.querySelector(".last_cleaned_date_class").textContent.trim();
-
-            console.log("Group ID:", group_id);
-            console.log("Ledger ID:", ledger_id);
-            console.log("Description:", description);
-            console.log("Transaction_date:", transaction_date);
-            console.log("Usage_period", usage_period);
-            console.log("Last_cleaned_date:", last_cleaned_date);
 
             const { data, error } = await db
                 .from('electronics')
@@ -130,8 +122,8 @@ async function dbbring() {
                     ledger_id: ledger_id,
                     group_id: group_id,
                     content: description,
-                    warranty_expiry: transaction_date,
-                    free_repair_expiry: usage_period,
+                    warranty_expiry: warranty_expiry,
+                    free_repair_expiry: free_repair_expiry,
                     last_cleaned_date: last_cleaned_date
                 }
                 ], { onConflict: 'ledger_id' });
