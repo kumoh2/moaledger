@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moa.ledger.mapper.UserGroupMapper">
+    <select id="findByUserId" resultType="org.moa.ledger.model.UserGroup">
+        SELECT * FROM usergroup WHERE user_id = #{userId}
+    </select>
+
+    <select id="findByUserIdAndGroupId" resultType="org.moa.ledger.model.UserGroup">
+        SELECT * FROM usergroup WHERE user_id = #{userId} AND group_id = #{groupId}
+    </select>
+
+    <insert id="insertUserGroup" parameterType="org.moa.ledger.model.UserGroup">
+        INSERT INTO usergroup(user_id, group_id, role)
+        VALUES(#{userId}, #{groupId}, #{role})
+    </insert>
+
+    <delete id="deleteUserGroup">
+        DELETE FROM usergroup WHERE user_id = #{userId} AND group_id = #{groupId}
+    </delete>
+
+    <update id="updateUserGroupRole" parameterType="org.moa.ledger.model.UserGroup">
+        UPDATE usergroup SET role = #{role}
+        WHERE user_id = #{userId} AND group_id = #{groupId}
+    </update>
+</mapper>

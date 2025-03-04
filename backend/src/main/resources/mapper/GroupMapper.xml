@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moa.ledger.mapper.GroupMapper">
+    <insert id="insertGroup" parameterType="org.moa.ledger.model.Group">
+        INSERT INTO "group"(group_id, name, leader_id, created_at)
+        VALUES(#{groupId}, #{name}, #{leaderId}, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="findByGroupId" resultType="org.moa.ledger.model.Group">
+        SELECT * FROM "group" WHERE group_id = #{groupId}
+    </select>
+
+    <!-- 그룹 목록 조회: usergroup과 조인 -->
+    <select id="findGroupsByUserId" resultType="org.moa.ledger.model.Group">
+        SELECT g.*
+        FROM "group" g
+        INNER JOIN usergroup ug ON g.group_id = ug.group_id
+        WHERE ug.user_id = #{userId}
+    </select>
+</mapper>

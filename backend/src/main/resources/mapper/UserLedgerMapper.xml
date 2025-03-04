@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moa.ledger.mapper.UserLedgerMapper">
+    <select id="findByUserId" resultType="org.moa.ledger.model.UserLedger">
+        SELECT * FROM userledger WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insertUserLedger" parameterType="org.moa.ledger.model.UserLedger">
+        INSERT INTO userledger(user_id, main_ledger_group_id)
+        VALUES(#{userId}, #{mainLedgerGroupId})
+    </insert>
+
+    <update id="updateUserLedger" parameterType="org.moa.ledger.model.UserLedger">
+        UPDATE userledger SET main_ledger_group_id = #{mainLedgerGroupId}
+        WHERE user_id = #{userId}
+    </update>
+</mapper>

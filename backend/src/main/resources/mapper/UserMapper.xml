@@ -1,10 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.moa.ledger.mapper.UserMapper">
-
     <select id="findByUserId" resultType="org.moa.ledger.model.User">
-        SELECT * FROM user WHERE user_id = #{userId}
+        SELECT * FROM "user" WHERE user_id = #{userId}
     </select>
 
+    <insert id="insertUser" parameterType="org.moa.ledger.model.User">
+        INSERT INTO "user"(user_id, password, nickname, email, created_at, updated_at)
+        VALUES(#{userId}, #{password}, #{nickname}, #{email}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <update id="updateUser" parameterType="org.moa.ledger.model.User">
+        UPDATE "user"
+        SET nickname = #{nickname}, email = #{email}
+        <if test="password != null and password != ''">
+            , password = #{password}
+        </if>,
+        updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM "user" WHERE user_id = #{userId}
+    </delete>
 </mapper>
