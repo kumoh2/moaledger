@@ -67,6 +67,11 @@
 			<version>3.0.4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>6.4.3</version> <!-- 버전은 Spring Boot 버전과 맞추세요 -->
+		</dependency>
 	</dependencies>
 
 	<build>
