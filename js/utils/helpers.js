@@ -1,17 +1,20 @@
 // js/utils/helpers.js
 
+// Render에 배포된 백엔드 주소
 const BACKEND_URL = "https://moa-ledger.onrender.com";
 
+// 로그인 API: userId와 password를 보내고, 백엔드에서 세션을 설정합니다.
 export async function login(userId, password) {
   const response = await fetch(`${BACKEND_URL}/auth/login`, {
     method: "POST",
-    credentials: "include",
+    credentials: "include", // 세션 쿠키 자동 포함
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ userId, password })
   });
-  return await response.text();
+  return await response.text(); // 예: "Login successful" 또는 에러 메시지 반환
 }
 
+// 로그아웃 API: 세션을 종료합니다.
 export async function logout() {
   await fetch(`${BACKEND_URL}/auth/logout`, {
     method: "POST",
@@ -19,22 +22,25 @@ export async function logout() {
   });
 }
 
+// 세션 확인 API: 현재 세션 상태를 확인합니다.
 export async function checkSession() {
   const response = await fetch(`${BACKEND_URL}/auth/secure-data`, {
     method: "GET",
     credentials: "include"
   });
-  return await response.text();
+  return await response.text(); // 예: "Hello, userId!" 또는 "Unauthorized!"
 }
 
+// 공통 HTML 헤더를 로드하는 함수 (예: 공통 네비게이션)
 export async function loadHTML() {
   const response = await fetch('../common/common.html');
   const html = await response.text();
   document.getElementById('top-section').innerHTML = html;
 }
 
+// 그룹 선택: 현재 사용자가 속한 그룹 목록을 백엔드 API로부터 받아 select box에 채웁니다.
 export async function setupSelectGroup(currentUser) {
-  // 그룹 목록 조회: GET /group/user?userId=xxx
+  // GET /group/user?userId=xxx (백엔드에서 사용자가 속한 그룹 목록 반환)
   const response = await fetch(`${BACKEND_URL}/group/user?userId=${currentUser}`, {
     method: "GET",
     credentials: "include"
@@ -54,6 +60,7 @@ export async function setupSelectGroup(currentUser) {
   });
 }
 
+// 사용자 닉네임 설정: 백엔드에서 사용자 정보를 조회하여 닉네임을 표시합니다.
 export async function setupnickName(currentUser) {
   const response = await fetch(`${BACKEND_URL}/auth/userinfo?userId=${currentUser}`, {
     method: "GET",

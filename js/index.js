@@ -1,3 +1,4 @@
+// js/index.js
 import { checkSession } from './utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
