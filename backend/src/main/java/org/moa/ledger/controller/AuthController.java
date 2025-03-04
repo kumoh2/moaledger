@@ -57,17 +57,12 @@ public class AuthController {
 
     @GetMapping("/userinfo")
     public User getUserInfo(@RequestParam String userId) {
-        // 단순 조회
-        User user = authService.getLoggedInUser(new HttpSession() {
-            @Override public String getId() { return userId; }
-            // 여기서는 간단히 userId를 반환하는 dummy session을 사용합니다.
-            // 실제 구현에서는 session에서 사용자 ID를 가져와 UserMapper를 통해 조회해야 합니다.
-            // 이 메서드는 예제이므로 단순 반환.
-        });
-        // 실제로는 userMapper.findByUserId(userId) 호출해야 함
-        user = authService.getLoggedInUser(null) != null ? null : null; // Placeholder
-        // 실제 구현에서는 백엔드에서 사용자 정보를 조회하여 반환합니다.
-        // 여기서는 간단히 null 반환.
+        // userId를 기반으로 사용자 전체 정보를 조회
+        User user = authService.getUserById(userId);
+        if (user != null) {
+            // 보안을 위해 비밀번호 필드는 null로 처리
+            user.setPassword(null);
+        }
         return user;
     }
 

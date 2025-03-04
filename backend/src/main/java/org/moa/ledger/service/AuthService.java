@@ -62,4 +62,8 @@ public class AuthService {
         Object userId = session.getAttribute("user");
         return userId != null ? userId.toString() : null;
     }
+
+    public User getUserById(String userId) {
+        return userMapper.findByUserId(userId);
+    }
 }
