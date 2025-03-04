@@ -4,7 +4,7 @@
 <mapper namespace="org.moa.ledger.mapper.UserMapper">
 
     <select id="findByUserId" resultType="org.moa.ledger.model.User">
-        SELECT * FROM users WHERE user_id = #{userId}
+        SELECT * FROM user WHERE user_id = #{userId}
     </select>
 
 </mapper>
