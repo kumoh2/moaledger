@@ -1,36 +1,27 @@
-import { setCurrentUser, db } from '../../js/utils/helpers.js';
-import bcrypt from 'https://cdn.jsdelivr.net/npm/bcryptjs/+esm';
+import { login } from '../../js/utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const username = document.getElementById('login-username').value.trim();
       const password = document.getElementById('login-password').value.trim();
 
-      // 사용자 정보 조회s
-      const { data: user, error } = await db
-          .from('user')
-          .select('*')
-          .eq('user_id', username)
-          .single();
+      try {
+        const result = await login(username, password); // ✅ 백엔드 API 호출
 
-      if (!user || error) {
-        alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-        return;
+        if (result.includes("Login successful")) {
+          alert("로그인 성공!");
+          window.location.href = '../main/main.html'; // ✅ 로그인 성공 시 메인 페이지 이동
+        } else {
+          alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+        }
+      } catch (error) {
+        console.error("로그인 중 오류 발생:", error);
+        alert("로그인 실패! 다시 시도해주세요.");
       }
-
-      // bcrypt로 비밀번호 검증
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword) {
-        alert("아이디 또는 비밀번호가 올바르지 않습니다.");
-        return;
-      }
-
-      alert("로그인 성공!");
-      setCurrentUser(user.user_id);
-      window.location.href = '../main/main.html';
     });
   }
 });
