@@ -5,6 +5,7 @@ import org.moa.ledger.model.User;
 import org.moa.ledger.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/auth")
