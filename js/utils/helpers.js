@@ -11,7 +11,12 @@ export async function login(userId, password) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ userId, password })
   });
-  return await response.text(); // 예: "Login successful" 또는 에러 메시지 반환
+
+  let a = await response.text(); // 예: "Login successful" 또는 에러 메시지 반환
+
+  console.log(a);
+
+  return a; // 예: "Login successful" 또는 에러 메시지 반환
 }
 
 // 로그아웃 API: 세션을 종료합니다.
