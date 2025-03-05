@@ -1,4 +1,4 @@
-import { db, checkLogin, setupLogout, loadHTML, setupSelectGroup, setupnickName } from '../../js/utils/helpers.js';
+import { loadHTML, setupSelectGroup, setupnickName, checkSession } from '../../js/utils/helpers.js';
 import { Calendar } from 'https://cdn.skypack.dev/@fullcalendar/core';
 import dayGridPlugin from 'https://cdn.skypack.dev/@fullcalendar/daygrid';
 // interaction 플러그인을 추가해야 dateClick 이벤트를 사용할 수 있습니다.
@@ -8,9 +8,17 @@ import interactionPlugin from 'https://cdn.skypack.dev/@fullcalendar/interaction
 let calendar;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const currentUser = checkLogin();
+  const sessionData = await checkSession();
+  // 예: { status: "ok", userId: "xxx" } or { status: "unauthorized" }
+
+  if (sessionData.status !== "ok") {
+    alert("로그인이 필요합니다.");
+    window.location.href = '../user/login.html';
+    return;
+  }
+  const currentUser = sessionData.userId; // "xxx"
   await loadHTML();
-  setupLogout();
+//  setupLogout();
   await setupSelectGroup(currentUser);
   await setupnickName(currentUser);
   loadLedger(currentUser);

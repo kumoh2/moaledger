@@ -67,8 +67,15 @@ public class AuthController {
     }
 
     @GetMapping("/secure-data")
-    public String secureData(HttpSession session) {
-        String user = authService.getLoggedInUser(session);
-        return user != null ? "Hello, " + user + "!" : "Unauthorized!";
-    }
+     public Map<String, String> secureData(HttpSession session) {
+         String userId = authService.getLoggedInUser(session);
+         Map<String, String> resp = new HashMap<>();
+         if (userId != null) {
+             resp.put("status", "ok");
+             resp.put("userId", userId);
+         } else {
+             resp.put("status", "unauthorized");
+         }
+         return resp;
+     }
 }

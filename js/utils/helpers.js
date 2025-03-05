@@ -12,11 +12,7 @@ export async function login(userId, password) {
     body: new URLSearchParams({ userId, password })
   });
 
-  let a = await response.text(); // 예: "Login successful" 또는 에러 메시지 반환
-
-  console.log(a);
-
-  return a; // 예: "Login successful" 또는 에러 메시지 반환
+  return await response.text(); // 예: "Login successful" 또는 에러 메시지 반환
 }
 
 // 로그아웃 API: 세션을 종료합니다.
@@ -31,9 +27,23 @@ export async function logout() {
 export async function checkSession() {
   const response = await fetch(`${BACKEND_URL}/auth/secure-data`, {
     method: "GET",
-    credentials: "include"
+    credentials: "include" // 세션 쿠키 포함
   });
-  return await response.text(); // 예: "Hello, userId!" 또는 "Unauthorized!"
+
+  // 기존에는 `text()`를 썼지만, 이제 JSON 응답이므로 `json()` 사용
+  const data = await response.json();
+  return data;
+  /*
+    data 예시:
+    {
+      "status": "ok",
+      "userId": "myUserId"
+    }
+    혹은
+    {
+      "status": "unauthorized"
+    }
+  */
 }
 
 // 공통 HTML 헤더를 로드하는 함수 (예: 공통 네비게이션)
