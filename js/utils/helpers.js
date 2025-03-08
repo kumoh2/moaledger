@@ -1,7 +1,7 @@
 // js/utils/helpers.js
 
 // Render에 배포된 백엔드 주소
-const BACKEND_URL = "https://moa-ledger.onrender.com";
+const BACKEND_URL = "https://moa-ledger.wkznwphsvn.workers.dev/";
 
 // 로그인 API: userId와 password를 보내고, 백엔드에서 세션을 설정합니다.
 export async function login(userId, password) {
