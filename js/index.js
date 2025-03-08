@@ -4,7 +4,7 @@ import { checkSession } from './utils/helpers.js';
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const sessionResponse = await checkSession(); // ✅ 세션 확인 API 호출
-        if (sessionResponse.includes("Hello")) {
+        if (sessionResponse.includes("ok")) {
             // ✅ 로그인 상태라면 메인 페이지로 이동
             window.location.href = './views/main/main.html';
         } else {
