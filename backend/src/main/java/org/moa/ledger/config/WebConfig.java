@@ -15,7 +15,7 @@ public class WebConfig {
         registry.addMapping("/**")
             .allowedOrigins("https://kumoh2.github.io")  // GitHub Pages 도메인
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .allowedHeaders("*") 
+            .allowedHeaders("*")
             .allowCredentials(true);
       }
     };
