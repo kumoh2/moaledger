@@ -13,7 +13,7 @@ public class WebConfig {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins("https://kumoh2.github.io", "https://moa-ledger.wkznwphsvn.workers.dev")
+            .allowedOrigins("https://moa.jhsoft.org")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
             .allowedHeaders("*")
             .allowCredentials(true);
